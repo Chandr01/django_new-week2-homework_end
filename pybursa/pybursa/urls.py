@@ -21,6 +21,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^polls/', include('polls.urls')),
     url(r'^quadric/', include('quadric.urls')),
-    url(r'^course/', include('course.urls')),
+    url(r'^', include('course.urls')),
+
+
+
 
 ]
