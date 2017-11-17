@@ -9,15 +9,17 @@ def index(request):
     return response
 
 
-def results(request, a, b, c):
-    print(1)
+def results(request):
     # resp = "a = {} b = {} c = {}".format(a, b, c)
+    a = request.GET.get('a')
+    b = request.GET.get('b')
+    c = request.GET.get('c')
     aa = False
     try:
         a = int(a)
         b = int(b)
         c = int(c)
-        print(123)
+
     except:
         aa = True
 
