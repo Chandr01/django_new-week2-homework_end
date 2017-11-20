@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<h1>{{ resp }}</h1>
-<h1>a : {{ a }}</h1>
-<h1>b : {{ b }}</h1>
-<h1>c : {{ c }}</h1>
 
+<body>
+<form method="get">
+    {{ form.as_p }}
+
+    <input type="submit" name="enter" />
+</form>
+
+<h1>{{ resp }}</h1>
+<!--{{ form.as_p }}-->
+<!--<ul>-->
+<!--<li>{{ resp }} </li>-->
+<!--<li>a : {{ a }} </li>-->
+<!--<li>b : {{ b }} </li>-->
+<!--<li>c : {{ c }} </li>-->
+
+<!--</ul>-->
 </body>
 </html>
