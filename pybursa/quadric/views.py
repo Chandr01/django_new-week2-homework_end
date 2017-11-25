@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import redirect
+from quadric.models import Quadric_logik
+from django.contrib import messages
 
 
 # Create your views here.
@@ -18,6 +21,35 @@ class QuadricForms(forms.Form):
     c = forms.CharField(max_length=100)
 
 
+class CorseApplyForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    email = forms.EmailField(label='Mail', required=False)
+    packag = forms.ChoiceField(choices=(('standart', 'Standart'),
+                                        ('gold', 'Gold'),
+                                        ('vip', 'VIP')), widget=forms.RadioSelect)
+    name_subscribe = forms.BooleanField(help_text='Hello Chan')
+
+
+def apply(request):
+    if request.method == 'POST':
+        form = CorseApplyForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            course_apply = Quadric_logik()
+            course_apply.name = data['name']
+            course_apply.email = data['email']
+            course_apply.packag = data['packag']
+            course_apply.name_subscribe = data['name_subscribe']
+            course_apply.save()
+            messages.success(request, 'Saved')
+            return redirect('/quadric/apply/')
+    else:
+        form = CorseApplyForm(initial={'packag': 'gold',
+                                       'name_subscribe': True})
+    # form = CorseApplyForm()
+    return render(request, 'apply.html', {'form': form})
+
+
 def results(request):
     form = QuadricForms()
     print(request.GET.get('a'))
@@ -25,6 +57,7 @@ def results(request):
     b = request.GET.get('b')
     c = request.GET.get('c')
     resp = "a = {} b = {} c = {}".format(a, b, c)
+
     # resp['form'] = form
     def tryse(z):
         try:
