@@ -5,7 +5,9 @@ from django.db import models
 class Quadric_logik(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(null=True)
-    packag = models.CharField(max_length=10)
+    packag = models.CharField(max_length=100, choices=(('standart', 'Standart'),
+                                                       ('gold', 'Gold'),
+                                                       ('vip', 'VIP')), default='gold')
     name_subscribe = models.BooleanField()
     comment = models.TextField(max_length=1000)
     is_active = models.BooleanField(default=True)

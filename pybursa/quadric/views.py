@@ -30,24 +30,58 @@ class CorseApplyForm(forms.Form):
     name_subscribe = forms.BooleanField(help_text='Hello Chan')
 
 
-def apply(request):
+class ModelCourseApplyForm(forms.ModelForm):
+    class Meta:
+        model = Quadric_logik
+        exclude = ['date_apply', 'is_active', 'comment']
+        widgets = {'packag': forms.RadioSelect}
+        labels = {'email': 'Mail'}
+
+
+def apply_delete(request, pk):
+    # print(pk)
+    quadric_logik = Quadric_logik.objects.get(id=pk)
+    form = ModelCourseApplyForm(instance=quadric_logik)
     if request.method == 'POST':
-        form = CorseApplyForm(request.POST)
+        quadric_logik.delete()
+
+        messages.success(request, 'Deleted')
+        return redirect('/quadric/apply/')
+    else:
+        form = ModelCourseApplyForm(instance=quadric_logik)
+    return render(request, 'result_delete.html', {'quadric_logik': quadric_logik})
+
+
+def apply_edit(request, pk):
+    # print(pk)
+    quadric_logik = Quadric_logik.objects.get(id=pk)
+    form = ModelCourseApplyForm(instance=quadric_logik)
+    if request.method == 'POST':
+        form = ModelCourseApplyForm(request.POST, instance=quadric_logik)
         if form.is_valid():
-            data = form.cleaned_data
-            course_apply = Quadric_logik()
-            course_apply.name = data['name']
-            course_apply.email = data['email']
-            course_apply.packag = data['packag']
-            course_apply.name_subscribe = data['name_subscribe']
-            course_apply.save()
+            quadric_logik = form.save()
+
             messages.success(request, 'Saved')
             return redirect('/quadric/apply/')
     else:
-        form = CorseApplyForm(initial={'packag': 'gold',
-                                       'name_subscribe': True})
+        form = ModelCourseApplyForm(instance=quadric_logik)
+    return render(request, 'result_edit.html', {'form': form})
+
+
+def apply(request):
+    # model_form = ModelCourseApplyForm()
+    if request.method == 'POST':
+        form = ModelCourseApplyForm(request.POST)
+        if form.is_valid():
+            instance = form.save()
+
+            messages.success(request, 'Saved')
+            return redirect('/quadric/apply/')
+    else:
+        form = ModelCourseApplyForm(initial={'packag': 'gold',
+                                             'name_subscribe': True})
     # form = CorseApplyForm()
-    return render(request, 'apply.html', {'form': form})
+    return render(request, 'result.html', {'form': form})
 
 
 def results(request):
