@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.name }}{% endblock title %}
+
+{% block name %}<h1>Web Разработка на Python</h1>{% endblock name %}
+
+{% block opisanie %}<p>{{ course.description|truncatechars:22 }}</p>{% endblock opisanie %}
+
+{% block content %}  <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <div class="panel-heading">План Курса</div>
+
+          <!-- Table -->
+          <table class="table">
+              <tr>
+                <td>Урок</td><td>Описание урока</td>
+              </tr>
+
+                {% for i in lessons %}
+
+                <tr>
+
+                      <td>{{ i.subject }}</td><td>{{ i.description }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+          </table>
+          </div>
+{% endblock content %}

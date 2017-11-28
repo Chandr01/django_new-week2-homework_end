@@ -86,12 +86,12 @@ def apply(request):
 
 def results(request):
     form = QuadricForms()
-    print(request.GET.get('a'))
-    a = request.GET.get('a')
-    b = request.GET.get('b')
-    c = request.GET.get('c')
+    print(request.POST.get('a'))
+    a = request.POST.get('a')
+    b = request.POST.get('b')
+    c = request.POST.get('c')
     resp = "a = {} b = {} c = {}".format(a, b, c)
-
+    print(a, b, c)
     # resp['form'] = form
     def tryse(z):
         try:
@@ -104,6 +104,7 @@ def results(request):
     a = tryse(a)
     b = tryse(b)
     c = tryse(c)
+
     errors = {
         'a_error': False,
         'b_error': False,
@@ -122,7 +123,7 @@ def results(request):
         resp = 'a - Ne mozet bit nulem'
     else:
         resp = 'Oshibka Argumetna'
-    return render(request, 'result.html', {'resp': resp,
+    return render(request, 'quadric.html', {'resp': resp,
                                            'a': a,
                                            'b': b,
                                            'c': c,

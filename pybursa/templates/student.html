@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Student{% endblock title %}
+
+{% block name %}<h1>{{ student.name }}</h1>{% endblock name %}
+
+
+
+{% block content %} <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <div class="panel-heading">О студенте</div>
+
+          <!-- Table -->
+          <table class="table">
+              <tr>
+                    <td>Фамилия</td><td>{{ student.name }}</td>
+              </tr>
+              <tr>
+                    <td>Имя</td><td>{{ student.surname }}</td>
+              </tr>
+              <tr>
+                  <td>Дата рождения</td><td>{{ student.date_of_birth }}</td>
+              </tr>
+              <tr>
+                  <td>Email</td><td>{{ student.email }}</td>
+              </tr>
+              <tr>
+                  <td>Телефон</td><td>{{ student.phone }}</td>
+              </tr>
+              <tr>
+                  <td>Адрес</td><td>{{ student.address }}</td>
+              </tr>
+              <tr>
+                  <td>Скайп</td><td>{{ student.skype }}</td>
+              </tr>
+              <tr>
+                  <td>Курсы</td><td>{% for a in student.courses.values %}{{ a.name}}<br />{% endfor %}</td>
+              </tr>
+          </table>
+          </div>
+{% endblock content %}
