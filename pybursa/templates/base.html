@@ -50,7 +50,9 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
-
+    {% if messages %}
+    {% block message %}{% endblock message %}
+      {% endif %}
     <div class="container">
 
       <div class="jumbotron">

@@ -6,9 +6,10 @@ from django.contrib.auth.models import User
 class User2(models.Model):
     name = models.CharField(max_length=100, null=True)
     surname = models.CharField(max_length=100, null=True)
+
     #
-    # def __str__(self):
-    #     return self.surname
+    def __str__(self):
+        return self.name
 
         # def __str__(self):
         #     return "{}".format(self.name)
@@ -25,14 +26,9 @@ class Coach(models.Model):
     description = models.TextField(max_length=1000)
     user2 = models.OneToOneField(User2, null=True)
 
-    # first_name = models.ForeignObject(User.first_name)
+    # def get_name(self, obj):
+    #     return obj.user.first_name
 
-    # class Meta:
-    #     mdoel = User
-    #
-    #     def __str__(self):
-    #         return "{}".format(self.first_name)
 
-    # def __str__(self):
-    #
-    #     return '{}'.format(self.user2)
+    def __str__(self):
+        return self.user.first_name
