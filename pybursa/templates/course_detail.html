@@ -28,7 +28,7 @@
 
           </table>
           </div>
-<a href="/course/edit/{{ course.id }}">Изменить</a>
-<a href="/course/remove/{{ course.id }}">Удалить</a>
-<a href="/lesson/add/{{ course.id }}">Добавить Урок</a>
+<span class="label label-success"><a href="/course/edit/{{ course.id }}">Изменить</a></span>
+<span class="label label-danger"><a href="/course/remove/{{ course.id }}">Удалить</a></span>
+<span class="label label-warning"><a href="/lesson/add/{{ course.id }}">Добавить Урок</a></span>
 {% endblock content %}

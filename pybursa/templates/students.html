@@ -2,6 +2,10 @@
 
 {% block title %}Stdents{% endblock title %}
 
+{% if messages %}
+    {% block message %}{% endblock message %}
+      {% endif %}
+
 {% block name %}<h1>Список студентов курса</h1>{% endblock name %}
 
 
@@ -27,8 +31,11 @@
                       <td>{{ i.phone }}</td>
                       <td>{{ i.address }}</td>
                       <td>{{ i.skype }}</td>
-                    <td>{% for a in i.courses.values %}<a href="http://127.0.0.1:8000/course/{{a.id}}">{{a.name}}</a><br />{% endfor %}</td>
-
+                      <td>{% for a in i.courses.values %}<a href="http://127.0.0.1:8000/course/{{a.id}}">{{a.name}}</a><br />{% endfor %}</td>
+                      <td>
+                          <span class="label label-success"><a href="http://127.0.0.1:8000/students/edit/{{i.id}}">Edit</a></span>
+                          <span class="label label-danger"><a href="http://127.0.0.1:8000/students/remove/{{i.id}}">Delete</a></span>
+                      </td>
                 </tr>
 
                 {% endfor %}

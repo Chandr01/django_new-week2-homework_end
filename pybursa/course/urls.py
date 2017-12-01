@@ -11,5 +11,8 @@ urlpatterns = [
     url(r'^course/add$', views.course_add),
     url(r'^course/remove/(?P<pk>\d+)$', views.course_delete),
     url(r'^lesson/add/(?P<pk>\d+)$', views.lesson_add),
+    url(r'^students/add$', views.students_add),
+    url(r'^students/remove/(?P<pk>\d+)$', views.student_delete),
+    url(r'^students/edit/(?P<pk>\d+)$', views.student_edit),
 
 ]

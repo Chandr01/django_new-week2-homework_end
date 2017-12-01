@@ -1,5 +1,5 @@
 from django import forms
-from course.models import Course, Lesson, Tester
+from course.models import Course, Lesson, Tester, Students
 
 
 class ModelCourseEditForm(forms.ModelForm):
@@ -17,3 +17,9 @@ class ModelLessonEditForm(forms.ModelForm):
     class Meta:
         model = Lesson
         exclude = ['order']
+
+
+class ModelStudentsEditForm(forms.ModelForm):
+    class Meta:
+        model = Students
+        exclude = ['']

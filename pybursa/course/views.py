@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from course.models import Course, Lesson, Students
-from course.forms import ModelCourseEditForm, ModelLessonEditForm
+from course.forms import ModelCourseEditForm, ModelLessonEditForm, ModelStudentsEditForm
 from django.shortcuts import redirect
 from django.contrib import messages
 
@@ -93,6 +93,54 @@ def lesson_add(request, pk):
             messages.success(request, 'Урок {} был доавлен'.format(instance))
             return redirect('/course/{}'.format(pk))
     else:
-        form =  ModelLessonEditForm(initial={'course': course})
+        form = ModelLessonEditForm(initial={'course': course})
     # form = CorseApplyForm()
     return render(request, 'lesson_add.html', {'form': form})
+
+
+def students_add(request):
+    # model_form = ModelCourseApplyForm()
+    if request.method == 'POST':
+        form = ModelStudentsEditForm(request.POST)
+        if form.is_valid():
+            instance = form.save()
+            # print(instance)
+            messages.success(request, 'Student {} was added'.format(instance))
+            return redirect('/students')
+    else:
+        form = ModelStudentsEditForm()
+        # print('No instance')
+    # form = CorseApplyForm()
+    return render(request, 'student_add.html', {'form': form})
+
+
+def student_delete(request, pk):
+    # print(pk)
+    delete_form = Students.objects.get(id=pk)
+    print(delete_form)
+    # print('Тип формы', type(modelcoursedeleteform['name']))
+    form = ModelStudentsEditForm(instance=delete_form)
+    if request.method == 'POST':
+        delete_form.delete()
+
+        messages.success(request, 'Student {} deleted'.format(delete_form))
+        return redirect('/students')
+    else:
+        form = ModelStudentsEditForm(instance=delete_form)
+    return render(request, 'student_delete.html', {'delete_form': delete_form})
+
+
+def student_edit(request, pk):
+    # print(pk)
+    edit_form = Students.objects.get(id=pk)
+    form = ModelStudentsEditForm(instance=edit_form)
+    if request.method == 'POST':
+        form = ModelStudentsEditForm(request.POST, instance=edit_form)
+        if form.is_valid():
+            edit_form = form.save()
+
+            messages.success(request, 'Изменения в курсе {} сохранены'.format(edit_form))
+            return redirect('/students')
+    else:
+        form = ModelStudentsEditForm(instance=edit_form)
+    return render(request, 'student_edit.html', {'edit_form': form})
