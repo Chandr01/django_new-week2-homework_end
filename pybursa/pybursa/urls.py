@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from pybursa import views
 
 
 urlpatterns = [
@@ -22,6 +23,7 @@ urlpatterns = [
     url(r'^polls/', include('polls.urls')),
     url(r'^quadric/', include('quadric.urls')),
     url(r'^', include('course.urls')),
+    url(r'^contacts/', views.ContactView.as_view()),
 
 
 

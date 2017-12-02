@@ -2,7 +2,7 @@
 
 {% block title %}Student{% endblock title %}
 
-{% block name %}<h1>{{ student.name }}</h1>{% endblock name %}
+{% block name %}<h1>{{ object.name }}</h1>{% endblock name %}
 
 
 
@@ -13,28 +13,28 @@
           <!-- Table -->
           <table class="table">
               <tr>
-                    <td>Фамилия</td><td>{{ student.name }}</td>
+                    <td>Фамилия</td><td>{{ object.name }}</td>
               </tr>
               <tr>
-                    <td>Имя</td><td>{{ student.surname }}</td>
+                    <td>Имя</td><td>{{ object.surname }}</td>
               </tr>
               <tr>
-                  <td>Дата рождения</td><td>{{ student.date_of_birth }}</td>
+                  <td>Дата рождения</td><td>{{ object.date_of_birth }}</td>
               </tr>
               <tr>
-                  <td>Email</td><td>{{ student.email }}</td>
+                  <td>Email</td><td>{{ object.email }}</td>
               </tr>
               <tr>
-                  <td>Телефон</td><td>{{ student.phone }}</td>
+                  <td>Телефон</td><td>{{ object.phone }}</td>
               </tr>
               <tr>
-                  <td>Адрес</td><td>{{ student.address }}</td>
+                  <td>Адрес</td><td>{{ object.address }}</td>
               </tr>
               <tr>
-                  <td>Скайп</td><td>{{ student.skype }}</td>
+                  <td>Скайп</td><td>{{ object.skype }}</td>
               </tr>
               <tr>
-                  <td>Курсы</td><td>{% for a in student.courses.values %}{{ a.name}}<br />{% endfor %}</td>
+                  <td>Курсы</td><td>{% for a in object.courses.values %}{{ a.name}}<br />{% endfor %}</td>
               </tr>
 
           </table>

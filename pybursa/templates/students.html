@@ -3,10 +3,16 @@
 {% block title %}Stdents{% endblock title %}
 
 {% if messages %}
-    {% block message %}{% endblock message %}
-      {% endif %}
+    {% block message %}
+        {% for message in messages %}
+            {% if message.tags %}
+                <div  class="alert alert-{{ message.tags }}">
+            {% endif %}{{ message }}</div>
+        {% endfor %}
+    {% endblock message %}
+{% endif %}
 
-{% block name %}<h1>Список студентов курса</h1>{% endblock name %}
+{% block name %}<h1>{{ page_title }}</h1>{% endblock name %}
 
 
 
