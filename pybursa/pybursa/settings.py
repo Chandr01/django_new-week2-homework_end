@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'course',
     'coaches',
+    'feddback',
 ]
 
 MIDDLEWARE = [
@@ -131,6 +132,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'course', 'templates', "static")
 ]
 
+EMAIL_HOST = '127.0.0.1'
+EMAIL_PORT = '1025'
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
 
-
-
+ADMINS = [('John', 'john@example.com'), ('Mary', 'mary@example.com')]

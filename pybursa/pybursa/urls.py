@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^quadric/', include('quadric.urls')),
     url(r'^', include('course.urls')),
     url(r'^contacts/', views.ContactView.as_view()),
+    url(r'^feedback/', include('feddback.urls')),
 
 
 

@@ -21,6 +21,7 @@ class CoachAdmin(admin.ModelAdmin):
 
     is_staff.admin_order_field = 'staff'  # Allows column order sorting
     is_staff.short_description = 'Is staff'  # Renames column head
+    list_per_page = 2
 
 
 admin.site.register(Coach, CoachAdmin)

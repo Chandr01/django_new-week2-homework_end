@@ -9,6 +9,7 @@ from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteVi
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
+from django.views.decorators.cache import cache_page
 
 
 # Create your views here.
@@ -53,7 +54,7 @@ class StudentCreateView(SuccessMessageMixin, CreateView):
     success_url = '/students'
     template_name = 'student_add.html'
     context_object_name = 'form'
-    success_message = '%(name) Created'
+    success_message = ' Created'
 
     def from_valid(self, form):
         response = super().form_valid(form)
@@ -79,6 +80,7 @@ class StudentListView(ListView):
     template_name = 'students.html'
     context_object_name = 'students'
     initial = {}
+    paginate_by = 1
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -103,9 +105,10 @@ class IndexView(TopCourseMixin, TemplateView):
     template_name = 'index.html'
 
 
+@cache_page(5)
 def course_(request):
     course = Course.objects.all()
-
+    print('NDEX')
     return render(request, 'index.html', {'course': course})
 
 

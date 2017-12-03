@@ -14,8 +14,6 @@
 
 {% block name %}<h1>{{ page_title }}</h1>{% endblock name %}
 
-
-
 {% block content %} <div class="panel panel-default">
           <!-- Default panel contents -->
           <div class="panel-heading">План Курса</div>
@@ -50,4 +48,32 @@
           </div>
 
 {% endblock content %}
- {% block nav_class_active_students %}active{% endblock nav_class_active_students %}
+ {% block nav_class_active_students %}active
+{% endblock nav_class_active_students %}
+
+
+{% for contact in contacts %}
+    {# Each "contact" is a Contact model object. #}
+    {{ contact.full_name|upper }}<br />
+    ...
+{% endfor %}
+
+{% block pagination %}
+{% if is_paginated %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+{% endblock pagination %}

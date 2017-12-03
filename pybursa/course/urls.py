@@ -1,8 +1,9 @@
 from django.conf.urls import url
 from . import views
+from django.views.decorators.cache import cache_page
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view()),
+    url(r'^$', views.course_),
     url(r'^course/(?P<identer>\d+)$', views.course_description),
     # url(r'^students/', views.students),
     url(r'^students/$', views.StudentListView.as_view(), name='list'),
