@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from pybursa import views
+from django.conf import settings
 
 
 urlpatterns = [
@@ -30,3 +31,7 @@ urlpatterns = [
 
 
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [url(r'^__debug__/', include(debug_toolbar.urls)), ]

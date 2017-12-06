@@ -35,10 +35,10 @@
                       <td>{{ i.phone }}</td>
                       <td>{{ i.address }}</td>
                       <td>{{ i.skype }}</td>
-                      <td>{% for a in i.courses.values %}<a href="http://127.0.0.1:8000/course/{{a.id}}">{{a.name}}</a><br />{% endfor %}</td>
+                      <td>{% for a in i.courses.values %}<a href="/course/{{a.id}}">{{a.name}}</a><br />{% endfor %}</td>
                       <td>
-                          <span class="label label-success"><a href="http://127.0.0.1:8000/students/edit/{{i.id}}">Edit</a></span>
-                          <span class="label label-danger"><a href="http://127.0.0.1:8000/students/remove/{{i.id}}">Delete</a></span>
+                          <span class="label label-success"><a href="/students/edit/{{i.id}}">Edit</a></span>
+                          <span class="label label-danger"><a href="/students/remove/{{i.id}}">Delete</a></span>
                       </td>
                 </tr>
 

@@ -12,8 +12,8 @@ class Course(models.Model):
     name = models.CharField(max_length=255)
     short_description = models.CharField(max_length=255)
     description = models.TextField(max_length=2000)
-    coach = models.ForeignKey(Coach, null=True, related_name='coach_courses')
-    assistant = models.ForeignKey(Coach, null=True, related_name='assistant_courses')
+    coach = models.ForeignKey(Coach, null=True, related_name='coach_courses', on_delete=models.DO_NOTHING)
+    assistant = models.ForeignKey(Coach, null=True, related_name='assistant_courses', on_delete=models.DO_NOTHING)
     print(coach)
 
     def __str__(self):
@@ -23,7 +23,7 @@ class Course(models.Model):
 class Lesson(models.Model):
     subject = models.CharField(max_length=255)
     description = models.TextField(max_length=2000)
-    course = models.ForeignKey(Course, null=True)
+    course = models.ForeignKey(Course, null=True, on_delete=models.DO_NOTHING)
     order = models.PositiveIntegerField(null=True, unique=True)
 
     def __str__(self):

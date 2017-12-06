@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -25,8 +24,7 @@ SECRET_KEY = '(ud^^l3&7czw8%4_s=@kj9k6*3t3x0$ui3ufgfkui=)ovu3+j)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -42,7 +40,10 @@ INSTALLED_APPS = [
     'course',
     'coaches',
     'feddback',
+    'debug_toolbar',
 ]
+
+INTERNAL_IPS = ['127.0.0.1']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,17 +53,24 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'pybursa.urls'
+
+MIDDLEWARE_CLASSES = [
+    # ...
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # ...
+]
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-                # os.path.join(BASE_DIR, 'course', 'templates', 'course'),
-                # os.path.join(BASE_DIR, 'course', 'templates', 'students'),
-                os.path.join(BASE_DIR, 'templates'),
+            # os.path.join(BASE_DIR, 'course', 'templates', 'course'),
+            # os.path.join(BASE_DIR, 'course', 'templates', 'students'),
+            os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -76,8 +84,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pybursa.wsgi.application'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 
+WSGI_APPLICATION = 'pybursa.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -88,7 +97,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -108,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -121,7 +128,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -138,3 +144,47 @@ EMAIL_PORT = '1025'
 # EMAIL_HOST_PASSWORD = ''
 
 ADMINS = [('John', 'john@example.com'), ('Mary', 'mary@example.com')]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
+
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'courses.log')
+        },
+        'file2': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'students.log')
+        },
+    },
+    'loggers': {
+        'pybursa': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+
+        },
+        'course': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+
+        },
+        'students': {
+            'handlers': ['file2'],
+            'level': 'DEBUG',
+
+        },
+    },
+}
+
+try:
+    from .local_settings import *
+except:
+    print('local not found')

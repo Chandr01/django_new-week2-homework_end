@@ -10,6 +10,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.decorators.cache import cache_page
+import logging
+from datetime import datetime
+
+logger = logging.getLogger(__name__)
+logger_students = logging.getLogger('students')
 
 
 # Create your views here.
@@ -93,6 +98,11 @@ class StudentListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Student - pyBursa'
+        logger_students.info('INFO: Students info {}'.format(datetime.now()))
+        logger_students.debug('DEBUG: Students debuged {}'.format(datetime.now()))
+        logger_students.error('ERROR: Students errored {}'.format(datetime.now()))
+        logger_students.warning('WARNING: Students warned {}'.format(datetime.now()))
+
         return context
 
 
@@ -105,10 +115,14 @@ class IndexView(TopCourseMixin, TemplateView):
     template_name = 'index.html'
 
 
-@cache_page(5)
+# @cache_page(5)
 def course_(request):
     course = Course.objects.all()
     print('NDEX')
+    logger.info('INFO: Course info {}'.format(datetime.now()))
+    logger.debug('DEBUG: Course debuged {}'.format(datetime.now()))
+    logger.error('ERROR: Course errored {}'.format(datetime.now()))
+    logger.warning('WARNING: Course warned {}'.format(datetime.now()))
     return render(request, 'index.html', {'course': course})
 
 
